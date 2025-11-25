@@ -35,7 +35,7 @@ export default function CourseDetailsScreen() {
   if (!course) {
     return (
       <View style={[styles.container, styles.center, isDarkMode && styles.containerDark]}>
-        <ActivityIndicator size="large" color="#2f95dc" />
+        <ActivityIndicator size="large" color="#6366f1" />
       </View>
     );
   }
@@ -53,13 +53,13 @@ export default function CourseDetailsScreen() {
     <ScrollView style={[styles.container, isDarkMode && styles.containerDark]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Feather name="arrow-left" size={24} color={isDarkMode ? '#fff' : '#000'} />
+          <Feather name="arrow-left" size={24} color={isDarkMode ? '#f1f5f9' : '#0f172a'} />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleToggleFavorite} style={styles.favoriteButton}>
           <Feather
             name={isFavorite ? 'heart' : 'heart'}
             size={24}
-            color={isFavorite ? '#ff4444' : (isDarkMode ? '#fff' : '#000')}
+            color={isFavorite ? '#ef4444' : (isDarkMode ? '#f1f5f9' : '#0f172a')}
             fill={isFavorite ? '#ff4444' : 'none'}
           />
         </TouchableOpacity>
@@ -79,7 +79,7 @@ export default function CourseDetailsScreen() {
 
         <View style={styles.metaSection}>
           <View style={styles.metaItem}>
-            <Feather name="calendar" size={16} color={isDarkMode ? '#999' : '#666'} />
+            <Feather name="calendar" size={16} color={isDarkMode ? '#94a3b8' : '#64748b'} />
             <Text style={[styles.metaText, isDarkMode && styles.textSecondaryDark]}>
               {course.first_publish_year || 'N/A'}
             </Text>
@@ -103,10 +103,10 @@ export default function CourseDetailsScreen() {
 const getStyles = (isDark: boolean) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8fafc',
   },
   containerDark: {
-    backgroundColor: '#000',
+    backgroundColor: '#0f172a',
   },
   center: {
     justifyContent: 'center',
@@ -118,7 +118,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     paddingTop: 60,
-    backgroundColor: isDark ? '#1a1a1a' : '#fff',
+    backgroundColor: isDark ? '#1e293b' : '#ffffff',
   },
   backButton: {
     padding: 5,
@@ -140,18 +140,18 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#0f172a',
     marginBottom: 8,
   },
   textDark: {
-    color: '#fff',
+    color: '#f1f5f9',
   },
   textSecondaryDark: {
-    color: '#999',
+    color: '#94a3b8',
   },
   author: {
     fontSize: 18,
-    color: '#666',
+    color: '#64748b',
   },
   metaSection: {
     flexDirection: 'row',
@@ -160,7 +160,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     marginBottom: 25,
     paddingBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: isDark ? '#333' : '#ddd',
+    borderBottomColor: isDark ? '#334155' : '#e2e8f0',
   },
   metaItem: {
     flexDirection: 'row',
@@ -169,21 +169,21 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   },
   metaText: {
     fontSize: 14,
-    color: '#666',
+    color: '#64748b',
   },
   statusBadge: {
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
-    backgroundColor: '#e3f2fd',
+    backgroundColor: '#e0e7ff',
   },
   popularBadge: {
-    backgroundColor: '#fff3e0',
+    backgroundColor: '#fef3c7',
   },
   statusText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#1976d2',
+    color: '#6366f1',
   },
   descriptionSection: {
     marginTop: 10,
@@ -191,12 +191,12 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#000',
+    color: '#0f172a',
     marginBottom: 12,
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#666',
+    color: '#64748b',
   },
 });

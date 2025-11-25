@@ -106,7 +106,7 @@ export default function HomeScreen() {
 
       {loading && courses.length === 0 ? (
         <View style={styles.center}>
-          <ActivityIndicator size="large" color="#2f95dc" />
+          <ActivityIndicator size="large" color="#6366f1" />
         </View>
       ) : (
         <FlatList
@@ -119,7 +119,7 @@ export default function HomeScreen() {
           }
           ListEmptyComponent={
             <View style={styles.center}>
-              <Feather name="book-open" size={64} color={isDarkMode ? '#666' : '#999'} />
+              <Feather name="book-open" size={64} color={isDarkMode ? '#64748b' : '#94a3b8'} />
               <Text style={[styles.emptyText, isDarkMode && styles.textSecondaryDark]}>
                 No courses found
               </Text>
@@ -134,10 +134,10 @@ export default function HomeScreen() {
 const getStyles = (isDark: boolean) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8fafc',
   },
   containerDark: {
-    backgroundColor: '#000',
+    backgroundColor: '#0f172a',
   },
   header: {
     flexDirection: 'row',
@@ -145,48 +145,48 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     paddingTop: 60,
-    backgroundColor: isDark ? '#1a1a1a' : '#fff',
+    backgroundColor: isDark ? '#1e293b' : '#ffffff',
   },
   greeting: {
     fontSize: 16,
-    color: '#666',
+    color: '#64748b',
   },
   username: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#0f172a',
     marginTop: 4,
   },
   textDark: {
-    color: '#fff',
+    color: '#f1f5f9',
   },
   textSecondaryDark: {
-    color: '#999',
+    color: '#94a3b8',
   },
   searchContainer: {
     flexDirection: 'row',
     padding: 15,
-    backgroundColor: isDark ? '#1a1a1a' : '#fff',
+    backgroundColor: isDark ? '#1e293b' : '#ffffff',
   },
   searchInput: {
     flex: 1,
     height: 45,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#e2e8f0',
     borderRadius: 8,
     paddingHorizontal: 15,
-    backgroundColor: '#f9f9f9',
-    color: '#000',
+    backgroundColor: '#f1f5f9',
+    color: '#0f172a',
   },
   searchInputDark: {
-    borderColor: '#333',
-    backgroundColor: '#000',
-    color: '#fff',
+    borderColor: '#334155',
+    backgroundColor: '#1e293b',
+    color: '#f1f5f9',
   },
   searchButton: {
     width: 45,
     height: 45,
-    backgroundColor: '#2f95dc',
+    backgroundColor: '#6366f1',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -197,17 +197,17 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     marginBottom: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   cardDark: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#1e293b',
   },
   cardImage: {
     width: 100,
@@ -223,12 +223,12 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#000',
+    color: '#0f172a',
     marginBottom: 5,
   },
   cardAuthor: {
     fontSize: 14,
-    color: '#666',
+    color: '#64748b',
     marginBottom: 10,
   },
   cardFooter: {
@@ -240,19 +240,19 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 4,
-    backgroundColor: '#e3f2fd',
+    backgroundColor: '#e0e7ff',
   },
   popularBadge: {
-    backgroundColor: '#fff3e0',
+    backgroundColor: '#fef3c7',
   },
   statusText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#1976d2',
+    color: '#6366f1',
   },
   yearText: {
     fontSize: 12,
-    color: '#666',
+    color: '#64748b',
   },
   center: {
     flex: 1,
@@ -263,6 +263,6 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   emptyText: {
     marginTop: 20,
     fontSize: 16,
-    color: '#999',
+    color: '#94a3b8',
   },
 });

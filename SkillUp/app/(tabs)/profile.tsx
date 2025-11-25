@@ -49,7 +49,7 @@ export default function ProfileScreen() {
       <View style={styles.content}>
         <View style={[styles.profileCard, isDarkMode && styles.cardDark]}>
           <View style={styles.avatarContainer}>
-            <Feather name="user" size={48} color={isDarkMode ? '#fff' : '#2f95dc'} />
+            <Feather name="user" size={48} color={isDarkMode ? '#818cf8' : '#6366f1'} />
           </View>
           <Text style={[styles.name, isDarkMode && styles.textDark]}>
             {user?.firstName && user?.lastName
@@ -78,7 +78,7 @@ export default function ProfileScreen() {
         <View style={[styles.settingsCard, isDarkMode && styles.cardDark]}>
           <View style={styles.settingItem}>
             <View style={styles.settingLeft}>
-              <Feather name="moon" size={20} color={isDarkMode ? '#fff' : '#000'} />
+              <Feather name="moon" size={20} color={isDarkMode ? '#f1f5f9' : '#0f172a'} />
               <Text style={[styles.settingLabel, isDarkMode && styles.textDark]}>
                 Dark Mode
               </Text>
@@ -88,7 +88,7 @@ export default function ProfileScreen() {
               onValueChange={() => {
                 dispatch(toggleTheme());
               }}
-              trackColor={{ false: '#767577', true: '#2f95dc' }}
+              trackColor={{ false: '#767577', true: '#6366f1' }}
               thumbColor={isDarkMode ? '#fff' : '#f4f3f4'}
             />
           </View>
@@ -109,50 +109,50 @@ export default function ProfileScreen() {
 const getStyles = (isDark: boolean) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8fafc',
   },
   containerDark: {
-    backgroundColor: '#000',
+    backgroundColor: '#0f172a',
   },
   header: {
     padding: 20,
     paddingTop: 60,
-    backgroundColor: isDark ? '#1a1a1a' : '#fff',
+    backgroundColor: isDark ? '#1e293b' : '#ffffff',
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#0f172a',
   },
   textDark: {
-    color: '#fff',
+    color: '#f1f5f9',
   },
   textSecondaryDark: {
-    color: '#999',
+    color: '#94a3b8',
   },
   content: {
     padding: 20,
   },
   profileCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 20,
     alignItems: 'center',
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   cardDark: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#1e293b',
   },
   avatarContainer: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: isDark ? '#333' : '#e3f2fd',
+    backgroundColor: isDark ? '#334155' : '#e0e7ff',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 15,
@@ -160,22 +160,22 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#0f172a',
     marginBottom: 5,
   },
   email: {
     fontSize: 14,
-    color: '#666',
+    color: '#64748b',
   },
   statsCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 20,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   statItem: {
@@ -188,21 +188,21 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   statValue: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#0f172a',
   },
   statLabel: {
     fontSize: 14,
-    color: '#666',
+    color: '#64748b',
   },
   settingsCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 20,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   settingItem: {
@@ -217,7 +217,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   },
   settingLabel: {
     fontSize: 16,
-    color: '#000',
+    color: '#0f172a',
   },
   logoutButton: {
     flexDirection: 'row',
