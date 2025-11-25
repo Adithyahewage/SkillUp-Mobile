@@ -56,7 +56,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
+  const colorScheme = isDarkMode ? 'dark' : 'light';
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const segments = useSegments();
   const router = useRouter();
