@@ -65,7 +65,7 @@ export default function FavoritesScreen() {
 
       {favorites.length === 0 ? (
         <View style={styles.emptyContainer}>
-          <Feather name="heart" size={64} color={isDarkMode ? '#666' : '#999'} />
+          <Feather name="heart" size={64} color={isDarkMode ? '#64748b' : '#94a3b8'} />
           <Text style={[styles.emptyText, isDarkMode && styles.textSecondaryDark]}>
             No favorites yet
           </Text>
@@ -88,43 +88,43 @@ export default function FavoritesScreen() {
 const getStyles = (isDark: boolean) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8fafc',
   },
   containerDark: {
-    backgroundColor: '#000',
+    backgroundColor: '#0f172a',
   },
   header: {
     padding: 20,
     paddingTop: 60,
-    backgroundColor: isDark ? '#1a1a1a' : '#fff',
+    backgroundColor: isDark ? '#1e293b' : '#ffffff',
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#0f172a',
   },
   textDark: {
-    color: '#fff',
+    color: '#f1f5f9',
   },
   textSecondaryDark: {
-    color: '#999',
+    color: '#94a3b8',
   },
   list: {
     padding: 15,
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     marginBottom: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   cardDark: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#1e293b',
   },
   cardImage: {
     width: 100,
@@ -140,12 +140,12 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#000',
+    color: '#0f172a',
     marginBottom: 5,
   },
   cardAuthor: {
     fontSize: 14,
-    color: '#666',
+    color: '#64748b',
     marginBottom: 10,
   },
   cardFooter: {
@@ -157,15 +157,15 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 4,
-    backgroundColor: '#e3f2fd',
+    backgroundColor: '#e0e7ff',
   },
   popularBadge: {
-    backgroundColor: '#fff3e0',
+    backgroundColor: '#fef3c7',
   },
   statusText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#1976d2',
+    color: '#6366f1',
   },
   removeButton: {
     padding: 5,
@@ -180,11 +180,11 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     marginTop: 20,
     fontSize: 18,
     fontWeight: '600',
-    color: '#999',
+    color: '#94a3b8',
   },
   emptySubtext: {
     marginTop: 8,
     fontSize: 14,
-    color: '#999',
+    color: '#94a3b8',
   },
 });

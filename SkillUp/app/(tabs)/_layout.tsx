@@ -14,8 +14,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme].tint,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: isDarkMode ? '#1a1a1a' : '#fff',
-          borderTopColor: isDarkMode ? '#333' : '#ddd',
+          backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+          borderTopColor: isDarkMode ? '#334155' : '#e2e8f0',
         },
       }}>
       <Tabs.Screen

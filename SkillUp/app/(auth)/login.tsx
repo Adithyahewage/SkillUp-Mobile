@@ -75,13 +75,13 @@ export default function LoginScreen() {
       style={styles.container}
     >
       <View style={styles.content}>
-        <Feather name="book-open" size={64} color={isDarkMode ? '#fff' : '#2f95dc'} />
+        <Feather name="book-open" size={64} color={isDarkMode ? '#818cf8' : '#6366f1'} />
         <Text style={styles.title}>Welcome to SkillUp</Text>
         <Text style={styles.subtitle}>Sign in to continue</Text>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Feather name="user" size={20} color={isDarkMode ? '#999' : '#666'} style={styles.icon} />
+            <Feather name="user" size={20} color={isDarkMode ? '#94a3b8' : '#64748b'} style={styles.icon} />
             <Controller
               control={control}
               name="username"
@@ -89,7 +89,7 @@ export default function LoginScreen() {
                 <TextInput
                   style={styles.input}
                   placeholder="Username"
-                  placeholderTextColor={isDarkMode ? '#666' : '#999'}
+                  placeholderTextColor={isDarkMode ? '#64748b' : '#94a3b8'}
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
@@ -101,7 +101,7 @@ export default function LoginScreen() {
           {errors.username && <Text style={styles.error}>{errors.username.message}</Text>}
 
           <View style={styles.inputContainer}>
-            <Feather name="lock" size={20} color={isDarkMode ? '#999' : '#666'} style={styles.icon} />
+            <Feather name="lock" size={20} color={isDarkMode ? '#94a3b8' : '#64748b'} style={styles.icon} />
             <Controller
               control={control}
               name="password"
@@ -109,7 +109,7 @@ export default function LoginScreen() {
                 <TextInput
                   style={styles.input}
                   placeholder="Password"
-                  placeholderTextColor={isDarkMode ? '#666' : '#999'}
+                  placeholderTextColor={isDarkMode ? '#64748b' : '#94a3b8'}
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
@@ -147,7 +147,7 @@ export default function LoginScreen() {
 const getStyles = (isDark: boolean) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: isDark ? '#000' : '#fff',
+    backgroundColor: isDark ? '#0f172a' : '#f8fafc',
   },
   content: {
     flex: 1,
@@ -158,12 +158,12 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: isDark ? '#fff' : '#000',
+    color: isDark ? '#f1f5f9' : '#0f172a',
     marginTop: 20,
   },
   subtitle: {
     fontSize: 16,
-    color: isDark ? '#999' : '#666',
+    color: isDark ? '#94a3b8' : '#64748b',
     marginBottom: 40,
   },
   form: {
@@ -174,11 +174,11 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: isDark ? '#333' : '#ddd',
+    borderColor: isDark ? '#334155' : '#e2e8f0',
     borderRadius: 8,
     paddingHorizontal: 15,
     marginBottom: 15,
-    backgroundColor: isDark ? '#1a1a1a' : '#f9f9f9',
+    backgroundColor: isDark ? '#1e293b' : '#f1f5f9',
   },
   icon: {
     marginRight: 10,
@@ -186,7 +186,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   input: {
     flex: 1,
     height: 50,
-    color: isDark ? '#fff' : '#000',
+    color: isDark ? '#f1f5f9' : '#0f172a',
   },
   error: {
     color: '#ff4444',
@@ -195,7 +195,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     marginLeft: 5,
   },
   button: {
-    backgroundColor: '#2f95dc',
+    backgroundColor: '#6366f1',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -212,10 +212,10 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     marginTop: 20,
   },
   footerText: {
-    color: isDark ? '#999' : '#666',
+    color: isDark ? '#94a3b8' : '#64748b',
   },
   link: {
-    color: '#2f95dc',
+    color: '#6366f1',
     fontWeight: '600',
   },
 });
