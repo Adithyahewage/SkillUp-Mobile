@@ -8,8 +8,9 @@ import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/store/store';
-
 import { useColorScheme } from '@/components/useColorScheme';
+import { useAppSelector } from '@/store/hooks';
+import { useRouter, useSegments } from 'expo-router';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,10 +57,22 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated && segments[0] !== '(auth)') {
+      router.replace('/(auth)/login');
+    } else if (isAuthenticated && segments[0] === '(auth)') {
+      router.replace('/(tabs)');
+    }
+  }, [isAuthenticated, segments]);
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
