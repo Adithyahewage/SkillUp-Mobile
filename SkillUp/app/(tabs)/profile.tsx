@@ -85,7 +85,9 @@ export default function ProfileScreen() {
             </View>
             <Switch
               value={isDarkMode}
-              onValueChange={() => dispatch(toggleTheme())}
+              onValueChange={() => {
+                dispatch(toggleTheme());
+              }}
               trackColor={{ false: '#767577', true: '#2f95dc' }}
               thumbColor={isDarkMode ? '#fff' : '#f4f3f4'}
             />

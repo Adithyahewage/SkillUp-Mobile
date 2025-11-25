@@ -31,11 +31,15 @@ export const authAPI = {
       body: JSON.stringify(credentials),
     });
     
+    const data = await response.json();
+    
     if (!response.ok) {
-      throw new Error('Invalid credentials');
+      // Parse error message from API response
+      const errorMessage = data.message || 'Invalid credentials';
+      throw new Error(errorMessage);
     }
     
-    return response.json();
+    return data;
   },
 
   register: async (data: RegisterData): Promise<AuthResponse> => {

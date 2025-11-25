@@ -24,6 +24,9 @@ export default function CourseDetailsScreen() {
   
   const [course, setCourse] = useState<Course | null>(null);
 
+  // Compute styles early so they're available for early returns
+  const styles = getStyles(isDarkMode);
+
   useEffect(() => {
     const foundCourse = courses.find((c) => c.key === id);
     setCourse(foundCourse || null);
@@ -45,8 +48,6 @@ export default function CourseDetailsScreen() {
   const handleToggleFavorite = () => {
     dispatch(toggleFavorite(course));
   };
-
-  const styles = getStyles(isDarkMode);
 
   return (
     <ScrollView style={[styles.container, isDarkMode && styles.containerDark]}>
