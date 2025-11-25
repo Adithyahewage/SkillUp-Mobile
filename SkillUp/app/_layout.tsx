@@ -5,6 +5,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '@/store/store';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -42,7 +45,13 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RootLayoutNav />
+      </PersistGate>
+    </Provider>
+  );
 }
 
 function RootLayoutNav() {
