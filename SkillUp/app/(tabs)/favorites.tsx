@@ -1,0 +1,190 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import { Feather } from '@expo/vector-icons';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { Course } from '@/store/slices/coursesSlice';
+import { removeFavorite } from '@/store/slices/favoritesSlice';
+
+export default function FavoritesScreen() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { items: favorites } = useAppSelector((state) => state.favorites);
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
+
+  const renderFavoriteCard = ({ item }: { item: Course }) => {
+    const coverUrl = item.cover_i
+      ? `https://covers.openlibrary.org/b/id/${item.cover_i}-M.jpg`
+      : 'https://via.placeholder.com/150';
+
+    return (
+      <TouchableOpacity
+        style={[styles.card, isDarkMode && styles.cardDark]}
+        onPress={() => router.push(`/(tabs)/course-details?id=${item.key}`)}
+      >
+        <Image source={{ uri: coverUrl }} style={styles.cardImage} />
+        <View style={styles.cardContent}>
+          <Text style={[styles.cardTitle, isDarkMode && styles.textDark]} numberOfLines={2}>
+            {item.title}
+          </Text>
+          {item.author_name && item.author_name.length > 0 && (
+            <Text style={[styles.cardAuthor, isDarkMode && styles.textSecondaryDark]}>
+              {item.author_name[0]}
+            </Text>
+          )}
+          <View style={styles.cardFooter}>
+            <View style={[styles.statusBadge, item.status === 'Popular' && styles.popularBadge]}>
+              <Text style={styles.statusText}>{item.status}</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => dispatch(removeFavorite(item.key))}
+              style={styles.removeButton}
+            >
+              <Feather name="trash-2" size={18} color="#ff4444" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const styles = getStyles(isDarkMode);
+
+  return (
+    <View style={[styles.container, isDarkMode && styles.containerDark]}>
+      <View style={styles.header}>
+        <Text style={[styles.headerTitle, isDarkMode && styles.textDark]}>My Favorites</Text>
+      </View>
+
+      {favorites.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Feather name="heart" size={64} color={isDarkMode ? '#666' : '#999'} />
+          <Text style={[styles.emptyText, isDarkMode && styles.textSecondaryDark]}>
+            No favorites yet
+          </Text>
+          <Text style={[styles.emptySubtext, isDarkMode && styles.textSecondaryDark]}>
+            Start adding courses to your favorites!
+          </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={favorites}
+          renderItem={renderFavoriteCard}
+          keyExtractor={(item) => item.key}
+          contentContainerStyle={styles.list}
+        />
+      )}
+    </View>
+  );
+}
+
+const getStyles = (isDark: boolean) => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  containerDark: {
+    backgroundColor: '#000',
+  },
+  header: {
+    padding: 20,
+    paddingTop: 60,
+    backgroundColor: isDark ? '#1a1a1a' : '#fff',
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  textDark: {
+    color: '#fff',
+  },
+  textSecondaryDark: {
+    color: '#999',
+  },
+  list: {
+    padding: 15,
+  },
+  card: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  cardDark: {
+    backgroundColor: '#1a1a1a',
+  },
+  cardImage: {
+    width: 100,
+    height: 120,
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+  },
+  cardContent: {
+    flex: 1,
+    padding: 15,
+    justifyContent: 'space-between',
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000',
+    marginBottom: 5,
+  },
+  cardAuthor: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 10,
+  },
+  cardFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  statusBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    backgroundColor: '#e3f2fd',
+  },
+  popularBadge: {
+    backgroundColor: '#fff3e0',
+  },
+  statusText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#1976d2',
+  },
+  removeButton: {
+    padding: 5,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 100,
+  },
+  emptyText: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#999',
+  },
+  emptySubtext: {
+    marginTop: 8,
+    fontSize: 14,
+    color: '#999',
+  },
+});
