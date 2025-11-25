@@ -5,8 +5,12 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '@/store/store';
 import { useColorScheme } from '@/components/useColorScheme';
+import { useAppSelector } from '@/store/hooks';
+import { useRouter, useSegments } from 'expo-router';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,15 +46,34 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RootLayoutNav />
+      </PersistGate>
+    </Provider>
+  );
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
+  const colorScheme = isDarkMode ? 'dark' : 'light';
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated && segments[0] !== '(auth)') {
+      router.replace('/(auth)/login');
+    } else if (isAuthenticated && segments[0] === '(auth)') {
+      router.replace('/(tabs)');
+    }
+  }, [isAuthenticated, segments]);
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
