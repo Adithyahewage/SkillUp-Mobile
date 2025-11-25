@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,40 +6,20 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  ActivityIndicator,
-  RefreshControl,
-  TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchCourses, setSearchQuery } from '@/store/slices/coursesSlice';
 import { Course } from '@/store/slices/coursesSlice';
+import { removeFavorite } from '@/store/slices/favoritesSlice';
 
-export default function HomeScreen() {
+export default function FavoritesScreen() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { courses, loading, searchQuery } = useAppSelector((state) => state.courses);
-  const user = useAppSelector((state) => state.auth.user);
+  const { items: favorites } = useAppSelector((state) => state.favorites);
   const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
-  const [localSearchQuery, setLocalSearchQuery] = useState('');
 
-  useEffect(() => {
-    dispatch(fetchCourses('programming'));
-  }, []);
-
-  const handleSearch = () => {
-    if (localSearchQuery.trim()) {
-      dispatch(setSearchQuery(localSearchQuery));
-      dispatch(fetchCourses(localSearchQuery));
-    }
-  };
-
-  const handleRefresh = () => {
-    dispatch(fetchCourses(searchQuery || 'programming'));
-  };
-
-  const renderCourseCard = ({ item }: { item: Course }) => {
+  const renderFavoriteCard = ({ item }: { item: Course }) => {
     const coverUrl = item.cover_i
       ? `https://covers.openlibrary.org/b/id/${item.cover_i}-M.jpg`
       : 'https://via.placeholder.com/150';
@@ -63,11 +43,12 @@ export default function HomeScreen() {
             <View style={[styles.statusBadge, item.status === 'Popular' && styles.popularBadge]}>
               <Text style={styles.statusText}>{item.status}</Text>
             </View>
-            {item.first_publish_year && (
-              <Text style={[styles.yearText, isDarkMode && styles.textSecondaryDark]}>
-                {item.first_publish_year}
-              </Text>
-            )}
+            <TouchableOpacity
+              onPress={() => dispatch(removeFavorite(item.key))}
+              style={styles.removeButton}
+            >
+              <Feather name="trash-2" size={18} color="#ff4444" />
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableOpacity>
@@ -79,52 +60,25 @@ export default function HomeScreen() {
   return (
     <View style={[styles.container, isDarkMode && styles.containerDark]}>
       <View style={styles.header}>
-        <View>
-          <Text style={[styles.greeting, isDarkMode && styles.textDark]}>Hello,</Text>
-          <Text style={[styles.username, isDarkMode && styles.textDark]}>
-            {user?.firstName || user?.username || 'User'}
+        <Text style={[styles.headerTitle, isDarkMode && styles.textDark]}>My Favorites</Text>
+      </View>
+
+      {favorites.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Feather name="heart" size={64} color={isDarkMode ? '#666' : '#999'} />
+          <Text style={[styles.emptyText, isDarkMode && styles.textSecondaryDark]}>
+            No favorites yet
           </Text>
-        </View>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/profile')}>
-          <Feather name="user" size={24} color={isDarkMode ? '#fff' : '#000'} />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={[styles.searchInput, isDarkMode && styles.searchInputDark]}
-          placeholder="Search courses..."
-          placeholderTextColor={isDarkMode ? '#666' : '#999'}
-          value={localSearchQuery}
-          onChangeText={setLocalSearchQuery}
-          onSubmitEditing={handleSearch}
-        />
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Feather name="search" size={20} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      {loading && courses.length === 0 ? (
-        <View style={styles.center}>
-          <ActivityIndicator size="large" color="#2f95dc" />
+          <Text style={[styles.emptySubtext, isDarkMode && styles.textSecondaryDark]}>
+            Start adding courses to your favorites!
+          </Text>
         </View>
       ) : (
         <FlatList
-          data={courses}
-          renderItem={renderCourseCard}
+          data={favorites}
+          renderItem={renderFavoriteCard}
           keyExtractor={(item) => item.key}
           contentContainerStyle={styles.list}
-          refreshControl={
-            <RefreshControl refreshing={loading} onRefresh={handleRefresh} />
-          }
-          ListEmptyComponent={
-            <View style={styles.center}>
-              <Feather name="book-open" size={64} color={isDarkMode ? '#666' : '#999'} />
-              <Text style={[styles.emptyText, isDarkMode && styles.textSecondaryDark]}>
-                No courses found
-              </Text>
-            </View>
-          }
         />
       )}
     </View>
@@ -140,57 +94,20 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     backgroundColor: '#000',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     padding: 20,
     paddingTop: 60,
     backgroundColor: isDark ? '#1a1a1a' : '#fff',
   },
-  greeting: {
-    fontSize: 16,
-    color: '#666',
-  },
-  username: {
-    fontSize: 24,
+  headerTitle: {
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#000',
-    marginTop: 4,
   },
   textDark: {
     color: '#fff',
   },
   textSecondaryDark: {
     color: '#999',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    padding: 15,
-    backgroundColor: isDark ? '#1a1a1a' : '#fff',
-  },
-  searchInput: {
-    flex: 1,
-    height: 45,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    backgroundColor: '#f9f9f9',
-    color: '#000',
-  },
-  searchInputDark: {
-    borderColor: '#333',
-    backgroundColor: '#000',
-    color: '#fff',
-  },
-  searchButton: {
-    width: 45,
-    height: 45,
-    backgroundColor: '#2f95dc',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 10,
   },
   list: {
     padding: 15,
@@ -250,11 +167,10 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     fontWeight: '600',
     color: '#1976d2',
   },
-  yearText: {
-    fontSize: 12,
-    color: '#666',
+  removeButton: {
+    padding: 5,
   },
-  center: {
+  emptyContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -262,7 +178,13 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   },
   emptyText: {
     marginTop: 20,
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#999',
+  },
+  emptySubtext: {
+    marginTop: 8,
+    fontSize: 14,
     color: '#999',
   },
 });
